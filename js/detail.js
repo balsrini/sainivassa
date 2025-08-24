@@ -5,9 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Find the apartment with the matching ID
     const apartment = apartments.find(apt => apt.id === apartmentId);
-    
+   
     // If apartment is found, display its details
     if (apartment) {
+        
         displayApartmentDetails(apartment);
         setupImageGallery(apartment);
         document.title = `${apartment.name} - Luxury Service Apartments`;
@@ -20,55 +21,121 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayApartmentDetails(apartment) {
         const apartmentInfo = document.getElementById('apartment-info');
         
-        // Create HTML for apartment info
-        const infoHTML = `
-            <h1>${apartment.name}</h1>
-            <div class="price">${apartment.price}</div>
-            <div class="description">
-                <p>${apartment.longDescription}</p>
-            </div>
-            <div class="features">
-                <h2>Features</h2>
-                <div class="feature-grid">
-                    <div class="feature">
-                        <i class="fas fa-bed"></i>
-                        <span>${apartment.bedrooms} Bedroom${apartment.bedrooms > 1 ? 's' : ''}</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-bath"></i>
-                        <span>${apartment.bathrooms} Bathroom${apartment.bathrooms > 1 ? 's' : ''}</span>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-ruler-combined"></i>
-                        <span>${apartment.area}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="amenities">
-                <h2>Amenities</h2>
-                <div class="amenities-list">
-                    ${apartment.amenities.map(amenity => `
-                        <div class="amenity">
-                            <i class="fas fa-check-circle"></i>
-                            <span>${amenity}</span>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-        `;
+        // Clear existing content
+        apartmentInfo.textContent = '';
         
-        // Set the HTML content
-        apartmentInfo.innerHTML = infoHTML;
+        // Create elements using safe DOM methods
+        const title = document.createElement('h1');
+        title.textContent = apartment.name;
+        apartmentInfo.appendChild(title);
+        
+        const price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = apartment.price;
+        apartmentInfo.appendChild(price);
+        
+        const description = document.createElement('div');
+        description.className = 'description';
+        const descPara = document.createElement('p');
+        descPara.textContent = apartment.longDescription;
+        description.appendChild(descPara);
+        apartmentInfo.appendChild(description);
+        
+        // Features section
+        const features = document.createElement('div');
+        features.className = 'features';
+        
+        const featuresTitle = document.createElement('h2');
+        featuresTitle.textContent = 'Features';
+        features.appendChild(featuresTitle);
+        
+        const featureGrid = document.createElement('div');
+        featureGrid.className = 'feature-grid';
+        
+        // Bedroom feature
+        const bedroomFeature = document.createElement('div');
+        bedroomFeature.className = 'feature';
+        
+        const bedIcon = document.createElement('i');
+        bedIcon.className = 'fas fa-bed';
+        bedroomFeature.appendChild(bedIcon);
+        
+        const bedText = document.createElement('span');
+        bedText.textContent = `${apartment.bedrooms} Bedroom${apartment.bedrooms > 1 ? 's' : ''}`;
+        bedroomFeature.appendChild(bedText);
+        
+        featureGrid.appendChild(bedroomFeature);
+        
+        // Bathroom feature
+        const bathroomFeature = document.createElement('div');
+        bathroomFeature.className = 'feature';
+        
+        const bathIcon = document.createElement('i');
+        bathIcon.className = 'fas fa-bath';
+        bathroomFeature.appendChild(bathIcon);
+        
+        const bathText = document.createElement('span');
+        bathText.textContent = `${apartment.bathrooms} Bathroom${apartment.bathrooms > 1 ? 's' : ''}`;
+        bathroomFeature.appendChild(bathText);
+        
+        featureGrid.appendChild(bathroomFeature);
+        
+        // Area feature
+        const areaFeature = document.createElement('div');
+        areaFeature.className = 'feature';
+        
+        const areaIcon = document.createElement('i');
+        areaIcon.className = 'fas fa-ruler-combined';
+        areaFeature.appendChild(areaIcon);
+        
+        const areaText = document.createElement('span');
+        areaText.textContent = apartment.area;
+        areaFeature.appendChild(areaText);
+        
+        featureGrid.appendChild(areaFeature);
+        features.appendChild(featureGrid);
+        apartmentInfo.appendChild(features);
+        
+        // Amenities section
+        const amenities = document.createElement('div');
+        amenities.className = 'amenities';
+        
+        const amenitiesTitle = document.createElement('h2');
+        amenitiesTitle.textContent = 'Amenities';
+        amenities.appendChild(amenitiesTitle);
+        
+        const amenitiesList = document.createElement('div');
+        amenitiesList.className = 'amenities-list';
+        
+        // Add each amenity
+        apartment.amenities.forEach(amenity => {
+            const amenityDiv = document.createElement('div');
+            amenityDiv.className = 'amenity';
+            
+            const checkIcon = document.createElement('i');
+            checkIcon.className = 'fas fa-check-circle';
+            amenityDiv.appendChild(checkIcon);
+            
+            const amenityText = document.createElement('span');
+            amenityText.textContent = amenity;
+            amenityDiv.appendChild(amenityText);
+            
+            amenitiesList.appendChild(amenityDiv);
+        });
+        
+        amenities.appendChild(amenitiesList);
+        apartmentInfo.appendChild(amenities);
     }
     
     // Function to set up the image gallery
     function setupImageGallery(apartment) {
         const mainImage = document.getElementById('main-image');
         const thumbnailContainer = document.getElementById('thumbnail-container');
-        
+            
         // Set main image
         mainImage.src = apartment.images[0] || 'images/placeholder.jpg';
         mainImage.alt = apartment.name;
+        console.log('Main image src set to:', mainImage.src);
         
         // Create thumbnails
         apartment.images.forEach((image, index) => {
@@ -93,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add error handling for images
             thumbnail.onerror = function() {
+                console.error(`Failed to load thumbnail image: ${this.src}`);
                 this.src = 'images/placeholder.jpg';
             };
             
@@ -102,6 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add error handling for main image
         mainImage.onerror = function() {
+            console.error(`Failed to load main image: ${this.src}`);
             this.src = 'images/placeholder.jpg';
         };
     }
