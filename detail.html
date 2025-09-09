@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View detailed information and high-quality images of our luxury service apartments. Find the perfect accommodation for your stay.">
+    <meta name="keywords" content="luxury apartments, service apartments, accommodation, apartment gallery, apartment images">
     <title>Apartment Details - Luxury Service Apartments</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/detail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="application/ld+json" id="apartment-schema">
+        {
+            "@context": "https://schema.org",
+            "@type": "Apartment",
+            "name": "Luxury Service Apartment",
+            "description": "Experience comfort and elegance in our premium accommodations",
+            "image": "images/placeholder.jpg"
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -20,9 +31,9 @@
         <!-- Apartment details will be loaded here via JavaScript -->
         <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to All Apartments</a>
         <div class="apartment-detail">
-            <div class="image-gallery">
-                <img src="images/placeholder.jpg" alt="Apartment" class="main-image" id="main-image">
-                <div class="thumbnail-container" id="thumbnail-container">
+            <div class="image-gallery" role="region" aria-label="Apartment image gallery">
+                <img src="images/placeholder.jpg" alt="Apartment" class="main-image" id="main-image" itemprop="image">
+                <div class="thumbnail-container" id="thumbnail-container" role="group" aria-label="Image thumbnails">
                     <!-- Thumbnails will be loaded here -->
                 </div>
             </div>

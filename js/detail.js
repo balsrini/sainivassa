@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
         displayApartmentDetails(apartment);
         setupImageGallery(apartment);
         document.title = `${apartment.name} - Luxury Service Apartments`;
+        
+        // Update schema.org structured data
+        updateStructuredData(apartment);
     } else {
         // If no apartment is found, redirect to the home page
         window.location.href = 'index.html';
@@ -137,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         // Set main image
         mainImage.src = apartment.images[0] || 'images/placeholder.jpg';
-        mainImage.alt = apartment.name;
+        mainImage.alt = `${apartment.name} - Main view of the luxury apartment`;
         
         // Create a wrapper for better thumbnail alignment
         const thumbnailWrapper = document.createElement('div');
@@ -153,9 +156,11 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create the actual thumbnail image
             const thumbnail = document.createElement('img');
             thumbnail.src = image;
-            thumbnail.alt = `${apartment.name} - Image ${index + 1}`;
+            thumbnail.alt = `${apartment.name} - View ${index + 1} of the luxury apartment`;
             thumbnail.className = index === 0 ? 'thumbnail active' : 'thumbnail';
             thumbnail.dataset.index = index;
+            thumbnail.setAttribute('role', 'button');
+            thumbnail.setAttribute('aria-label', `View image ${index + 1} of ${apartment.images.length}`);
             
             // Add click event to thumbnail
             thumbnail.addEventListener('click', function() {
@@ -188,6 +193,30 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(`Failed to load main image: ${this.src}`);
             this.src = 'images/placeholder.jpg';
         };
+    }
+    
+    // Function to update structured data for SEO
+    function updateStructuredData(apartment) {
+        const schemaScript = document.getElementById('apartment-schema');
+        const schemaData = {
+            "@context": "https://schema.org",
+            "@type": "Apartment",
+            "name": apartment.name,
+            "description": apartment.longDescription,
+            "image": apartment.images.map(img => new URL(img, window.location.href).href),
+            "numberOfRooms": apartment.bedrooms,
+            "amenityFeature": apartment.amenities.map(amenity => ({
+                "@type": "LocationFeatureSpecification",
+                "name": amenity
+            })),
+            "floorSize": {
+                "@type": "QuantitativeValue",
+                "value": apartment.area.replace(/[^0-9]/g, ''),
+                "unitCode": "SQM"
+            }
+        };
+        
+        schemaScript.textContent = JSON.stringify(schemaData, null, 2);
     }
 });
 
