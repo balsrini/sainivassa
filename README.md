@@ -1,6 +1,6 @@
-# Luxury Service Apartments
+# Luxury Furnished Apartments
 
-A static website showcasing luxury service apartments for rent. This project is designed to be hosted on GitHub Pages.
+A static website showcasing luxury furnished apartments for rent. This project is designed to be hosted on GitHub Pages.
 
 ## Features
 
@@ -12,7 +12,7 @@ A static website showcasing luxury service apartments for rent. This project is 
 ## Project Structure
 
 ```
-service-apartments/
+furnished-apartments/
 ├── css/
 │   └── styles.css
 ├── images/
@@ -56,7 +56,7 @@ To deploy this website to GitHub Pages:
 
 ## Customization
 
-To customize this website for your own service apartments:
+To customize this website for your own furnished apartments:
 
 1. Update the apartment data in `js/apartments.js`
 2. Replace placeholder images with actual apartment images

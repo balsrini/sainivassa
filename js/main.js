@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="apartment-amenities">
                         <p><strong>Amenities:</strong> ${apartment.amenities.slice(0, 3).join(', ')}${apartment.amenities.length > 3 ? '...' : ''}</p>
                     </div>
-                    <div class="price">${apartment.price}</div>
                     <a href="#" class="view-button" data-id="${apartment.id}">View Details</a>
                 </div>
             `;

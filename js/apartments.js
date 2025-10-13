@@ -7,7 +7,6 @@ const apartments = [
         bedrooms: 3,
         bathrooms: 2,
         area: "1300 sq ft",
-        price: "₹3200 per night, ₹65,000 per month",
         amenities: ["Air Conditioning Rooms", "Queen Size Bed", "Working kitchen", "High-Speed Internet", "Road Facing"],
         image: "images/apartment1_1.jpg",
         images: [
@@ -32,7 +31,6 @@ const apartments = [
         bedrooms: 2,
         bathrooms: 2,
         area: "1200 sq ft",
-        price: "₹2200 per night,₹60,000 per month",
         amenities: [ "High-Speed Internet", "Air Conditioning Rooms", "Working Kitchen", "Smart TV"],
         image: "images/apartment2_1.jpg",
         images: [

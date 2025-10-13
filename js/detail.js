@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         displayApartmentDetails(apartment);
         setupImageGallery(apartment);
-        document.title = `${apartment.name} - Luxury Service Apartments`;
+        document.title = `${apartment.name} - Luxury Furnished Apartments`;
         
         // Update schema.org structured data
         updateStructuredData(apartment);
@@ -31,11 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const title = document.createElement('h1');
         title.textContent = apartment.name;
         apartmentInfo.appendChild(title);
-        
-        const price = document.createElement('div');
-        price.className = 'price';
-        price.textContent = apartment.price;
-        apartmentInfo.appendChild(price);
         
         const description = document.createElement('div');
         description.className = 'description';
